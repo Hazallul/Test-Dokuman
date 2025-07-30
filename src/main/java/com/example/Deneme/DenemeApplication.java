@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 public class DenemeApplication {
 
 	private String Kaydet;
-
+	private String test2="Geri Mesaj: ";
 	public static void main(String[] args) {
 		SpringApplication.run(DenemeApplication.class, args);}
 
 
 @PostMapping("Test")
 	public String Denemeeee (@RequestBody String test) {
-		this.Kaydet="Geri Mesaj"+test;
+		this.Kaydet=test2+test;
 		return Kaydet;
 }
 
