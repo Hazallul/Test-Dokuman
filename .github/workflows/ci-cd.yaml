@@ -61,3 +61,7 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: kubectl apply -f Deployment.yaml
+
+    - name: Force restart pods
+      run: kubectl delete pod -l app=spring-boot-app
+
