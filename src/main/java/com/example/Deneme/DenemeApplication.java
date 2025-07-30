@@ -25,7 +25,7 @@ public class DenemeApplication {
 @GetMapping("/Merhaba")
 	public String Deneme(){
 
-		return "Merhaba DünyaAA";
+		return "Selammm";
 	}
 
 
