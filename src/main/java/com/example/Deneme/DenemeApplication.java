@@ -18,7 +18,7 @@ public class DenemeApplication {
 @PostMapping("Test")
 	public String Denemeeee (@RequestBody String test) {
 		this.Kaydet=test;
-		return test;
+		return "Geri Mesaj"+test;
 }
 
 
