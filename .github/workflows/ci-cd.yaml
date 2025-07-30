@@ -44,7 +44,12 @@ jobs:
         repository: Hazallul/Deneme 
         token: ${{ secrets.PAT }} 
         branch: main 
-        files: Deployment.yaml 
+        valueFile: Deployment.yaml
 
         changes: |
-          image: hazallul/spring-boot-app:${{ github.sha }} # Yeni imaj etiketi
+          {
+            "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}"
+          }
+
+        commitChange: true
+        message: "Update image to hazallul/spring-boot-app:${{ github.sha }}"
