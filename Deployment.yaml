@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: hazallul/deneme-api:latest  
+        image: hazallul/spring-boot-app:latest  
         ports:
         - containerPort: 8080
 ---
