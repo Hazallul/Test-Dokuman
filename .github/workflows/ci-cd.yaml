@@ -74,3 +74,4 @@ jobs:
           }
         # Commit mesajını oluştur
         message: "ci: Update image to ${{ github.sha }} and restart deployment"
+        updateFile: true
