@@ -56,3 +56,4 @@ jobs:
           git add Deployment.yaml
           git commit -m "🕒 Update deployment timestamp and image to $TIMESTAMP"
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/Hazallul/Deneme.git
+
