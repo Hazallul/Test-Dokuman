@@ -15,6 +15,7 @@ spec:
         app: spring-boot-app
       annotations:
         kubectl.kubernetes.io/restartedAt: "2025-07-31T15:00:00Z" 
+    spec:                          # ← EKLENDİ!
       containers:
       - name: spring-boot-app
         image: hazallul/spring-boot-app:latest
