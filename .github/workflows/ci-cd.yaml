@@ -50,18 +50,6 @@ jobs:
         commitChange: true
         message: "Update image to hazallul/spring-boot-app:${{ github.sha }}"
 
-    - name: Install kubectl
-      run: |
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
-
-    - name: Set up Kubeconfig
-      run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
-
-    - name: Deploy to Kubernetes
-      run: kubectl apply -f Deployment.yaml
+   
 
    
