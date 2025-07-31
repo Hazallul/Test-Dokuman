@@ -52,7 +52,8 @@ jobs:
         changes: >
           {
             "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}",
-            "spec.template.metadata.annotations.kubectl.kubernetes.io/restartedAt": "${{ steps.date.outputs.timestamp }}"
+            "spec.template.metadata.annotations[\"kubectl.kubernetes.io/restartedAt\"]": "${{ steps.date.outputs.timestamp }}"
+
           }
         commitChange: true
         message: "Update image and restart timestamp"
