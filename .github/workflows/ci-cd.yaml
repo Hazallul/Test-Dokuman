@@ -50,6 +50,12 @@ jobs:
         commitChange: true
         message: "Update image to hazallul/spring-boot-app:${{ github.sha }}"
 
+    - name: Set up kube config
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+
+
     - name: Apply Deployment
       run: kubectl apply -f Deployment.yaml
 
