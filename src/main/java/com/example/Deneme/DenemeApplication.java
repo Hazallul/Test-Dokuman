@@ -25,7 +25,7 @@ public class DenemeApplication {
 @GetMapping("/Merhaba")
 	public String Deneme(){
 
-		return "SelammmTestYarınnSonEnİppSİLDİM";
+		return "Selamm LatestSildim";
 	}
 
 
