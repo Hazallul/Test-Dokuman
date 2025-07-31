@@ -50,6 +50,8 @@ jobs:
         commitChange: true
         message: "Update image to hazallul/spring-boot-app:${{ github.sha }}"
 
-   
+    - name: Apply Deployment
+      run: kubectl apply -f Deployment.yaml
+
 
    
