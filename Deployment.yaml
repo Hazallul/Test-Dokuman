@@ -13,8 +13,6 @@ spec:
     metadata:
       labels:
         app: spring-boot-app
-      annotations:
-        kubectl.kubernetes.io/restartedAt: "${{ steps.date.outputs.date }}"
     spec:
       containers:
       - name: spring-boot-app
