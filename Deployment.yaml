@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: hazallul/spring-boot-app:latest  
+        image: hazallul/spring-boot-app:<SHA_TAG>  
         ports:
         - containerPort: 8080
 ---
