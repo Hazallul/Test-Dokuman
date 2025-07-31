@@ -52,7 +52,9 @@ jobs:
         changes: |
           {
             "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}",
-            "spec.template.metadata.annotations.kubectl\\.kubernetes\\.io/restartedAt": "${{ steps.date.outputs.date }}"
           }
         commitChange: true
         message: "Update image to hazallul/spring-boot-app:${{ github.sha }} and restart timestamp"
+
+    - name: Restart deployment to pick up new image
+      run: kubectl rollout restart deployment spring-boot-app
