@@ -41,6 +41,11 @@ jobs:
           hazallul/spring-boot-app:${{ github.sha }}
           hazallul/spring-boot-app:latest
 
+    - name: Get current timestamp
+      id: get_timestamp
+      run: echo "timestamp=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+
+
     - name: Update Kubernetes deployment image and annotation
       uses: fjogeleit/yaml-update-action@main
       with:
@@ -51,7 +56,7 @@ jobs:
         changes: >
           {
             "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}",
-            "spec.template.metadata.annotations[\"kubectl.kubernetes.io/restartedAt\"]": "${{ env.TIMESTAMP }}"
+            "spec.template.metadata.annotations[\"kubectl.kubernetes.io/restartedAt\"]": "${{ steps.get_timestamp.outputs.timestamp }}"
           }
         commitChange: true
-        message: "🕒 Update image and restart timestamp at ${{ env.TIMESTAMP }}"
+        message: " Update image and restart timestamp at ${{ steps.get_timestamp.outputs.timestamp }}"
