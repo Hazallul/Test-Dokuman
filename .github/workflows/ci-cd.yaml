@@ -52,6 +52,12 @@ jobs:
       id: get_timestamp
       run: echo "timestamp=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
+
+    - name: Update restartedAt annotation with sed
+      run: |
+       sed -i 's/kubectl.kubernetes.io\/restartedAt: ".*"/kubectl.kubernetes.io\/restartedAt: "2025-07-31T20:00:07Z"/' Deployment.yaml
+
+
     # 7. Adım: Kubernetes Deployment dosyasını güncelle
     # Bu adım, hem image etiketini hem de zaman damgası annotation'ını tek seferde günceller.
     # Bu sayede Argo CD her seferinde değişikliği algılar.
