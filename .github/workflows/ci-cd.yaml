@@ -34,14 +34,15 @@ jobs:
       with:
         context: .
         push: true
-        tags: hazallul/spring-boot-app:${{ github.sha }}, hazallul/spring-boot-app:latest
+        tags: |
+          hazallul/spring-boot-app:${{ github.sha }},
+          hazallul/spring-boot-app:latest
 
     - name: Get current timestamp
       id: date
       run: echo "date=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
 
-
-    - name: Update Kubernetes deployment image
+    - name: Update Kubernetes deployment image and annotation
       uses: fjogeleit/yaml-update-action@main
       with:
         repository: Hazallul/Deneme
@@ -50,12 +51,8 @@ jobs:
         valueFile: Deployment.yaml
         changes: |
           {
-            "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}"
+            "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}",
+            "spec.template.metadata.annotations.kubectl\\.kubernetes\\.io/restartedAt": "${{ steps.date.outputs.date }}"
           }
         commitChange: true
-        message: "Update image to hazallul/spring-boot-app:${{ github.sha }}"
-
-   
-
-
-   
+        message: "Update image to hazallul/spring-boot-app:${{ github.sha }} and restart timestamp"
