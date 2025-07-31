@@ -38,8 +38,18 @@ jobs:
           hazallul/spring-boot-app:${{ github.sha }},
           hazallul/spring-boot-app:latest
 
-    - name: Get current timestamp
-      run: echo "TIMESTAMP=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+    - name: Update deployment timestamp
+      run: |
+        TIMESTAMP=$(date +'%Y-%m-%dT%H:%M:%S')
+        sed -i "s|kubectl.kubernetes.io/restartedAt: .*|kubectl.kubernetes.io/restartedAt: \"$TIMESTAMP\"|" Deployment.yaml
+
+    - name: Commit and push deployment update
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add Deployment.yaml
+        git commit -m "Trigger ArgoCD sync with timestamp $TIMESTAMP"
+        git push
 
     - name: Update Kubernetes deployment image and annotation
       uses: fjogeleit/yaml-update-action@main
