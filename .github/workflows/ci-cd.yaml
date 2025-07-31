@@ -70,7 +70,7 @@ jobs:
         changes: |
           {
             "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}",
-            "spec.template.metadata.annotations['kubectl.kubernetes.io/restartedAt']": "${{ steps.get_timestamp.outputs.timestamp }}"
+            "spec.template.metadata.annotations['kubectl.kubernetes.io/restartedAt']": "2024-07-31T15:00:00Z"
           }
         # Commit mesajını oluştur
         message: "ci: Update image to ${{ github.sha }} and restart deployment"
