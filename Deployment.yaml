@@ -14,7 +14,7 @@ spec:
       labels:
         app: spring-boot-app
       annotations:
-        kubectl.kubernetes.io/restartedAt: "2012-07-31T20:00:07Z"
+        kubectl.kubernetes.io/restartedAt: "2025-08-01T06:51:35Z"
          
     spec:                         
       containers:
