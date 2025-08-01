@@ -71,7 +71,7 @@ jobs:
       run: cat Deployment.yaml
 
     - name: Update restartedAt annotation with sed
-      run: "sed -i 's/kubectl.kubernetes.io\\/restartedAt: \".*/kubectl.kubernetes.io\\/restartedAt: \"2012-07-31T20:00:07Z\"/' Deployment.yaml"
+      run: "sed -i 's/kubectl.kubernetes.io\\/restartedAt: \".*/kubectl.kubernetes.io\\/restartedAt: \"${{ steps.get_timestamp.outputs.timestamp }}\"/' Deployment.yaml"
 
 
     - name: Show Deployment.yaml after sed
