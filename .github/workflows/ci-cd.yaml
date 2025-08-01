@@ -1,4 +1,3 @@
-# .github/workflows/main.yml (veya tercih ettiğin bir isim)
 
 name: CI/CD Pipeline
 
@@ -12,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Adım: Kodu checkout et
+   
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # 2. Adım: Java 17 ve Maven'ı ayarla
+   
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
@@ -24,19 +23,18 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
 
-    # 3. Adım: Maven ile projeyi derle (testleri atla)
+    
     - name: Build with Maven
       run: mvn clean install -DskipTests
 
-    # 4. Adım: Docker Hub'a giriş yap
+   
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_TOKEN }}
 
-    # 5. Adım: Docker image'ını build et ve push'la
-    # Image'ı hem 'latest' hem de eşsiz olan commit SHA'sı ile etiketliyoruz.
+   
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
@@ -46,35 +44,27 @@ jobs:
           hazallul/spring-boot-app:${{ github.sha }}
           hazallul/spring-boot-app:latest
 
-    # 6. Adım: Anlık zaman damgasını al
-    # Bu adım, bir sonraki adımda kullanılmak üzere zaman damgasını bir çıktı olarak üretir.
+   
     - name: Get current timestamp
       id: get_timestamp
       run: echo "timestamp=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
 
 
-    # 7. Adım: Kubernetes Deployment dosyasını güncelle
-    # Bu adım, hem image etiketini hem de zaman damgası annotation'ını tek seferde günceller.
-    # Bu sayede Argo CD her seferinde değişikliği algılar.
+    
     - name: Update Kubernetes deployment image and annotation
-      uses: fjogeleit/yaml-update-action@main # Bu action, YAML dosyalarını güncellemek için harika bir araç
+      uses: fjogeleit/yaml-update-action@main 
       with:
-        # Değişikliğin yapılacağı repo. Eğer aynı repodaysa bu satırı silebilirsin.
         repository: Hazallul/Deneme 
-        # Bu action'ın diğer repoya yazma izni olması için GH_TOKEN gerekir.
         token: ${{ secrets.GH_TOKEN }} 
-        # Değişikliğin yapılacağı branch
-        branch: main
-        # Güncellenecek dosyanın adı
+        branch: main  
         valueFile: Deployment.yaml
-        # Yapılacak değişiklikleri JSON formatında belirtiyoruz
         changes: |
           {
             "spec.template.spec.containers[0].image": "hazallul/spring-boot-app:${{ github.sha }}",
             "spec.template.metadata.annotations['kubectl.kubernetes.io/restartedAt']": "2021-07-31T15:00:00Z"
           }
-        # Commit mesajını oluştur
+       
         message: "ci: Update image to ${{ github.sha }} and restart deployment"
 
     - name: Show Deployment.yaml before sed
