@@ -41,8 +41,8 @@ jobs:
         context: .
         push: true
         tags: |
-          hazallul/spring-boot-app-Test:${{ github.sha }}
-          hazallul/spring-boot-app-Test:latest
+          hazallul/spring-boot-app-test:${{ github.sha }}
+          hazallul/spring-boot-app-test:latest
 
    
     - name: Get current timestamp
