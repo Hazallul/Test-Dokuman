@@ -50,18 +50,11 @@ jobs:
       run: echo "timestamp=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
 
-    - name: Show Deployment.yaml before sed
-      run: cat Deployment.yaml
 
     - name: Update restartedAt annotation with sed
       run: "sed -i 's/kubectl.kubernetes.io\\/restartedAt: \".*/kubectl.kubernetes.io\\/restartedAt: \"${{ steps.get_timestamp.outputs.timestamp }}\"/' Deployment.yaml"
 
 
-    - name: Show Deployment.yaml after sed
-      run: cat Deployment.yaml
-
-    - name: Git status
-      run: git status
 
     - name: Push changes
       run: |
