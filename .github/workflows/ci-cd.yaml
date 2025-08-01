@@ -97,5 +97,4 @@ jobs:
        git add Deployment.yaml
        git commit -m "Tarih güncellendi"
        git push https://x-access-token:${{ secrets.PAT }}@github.com/Hazallul/Deneme.git
-       env:
-         GITHUB_TOKEN: ${{ secrets.PAT }}
+      
